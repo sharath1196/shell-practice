@@ -5,12 +5,13 @@
 # Memory usage
 # Disk usage#
 
-date
 
-free -h
+echo "CPU Load : "
 uptime
-echo "$?"
 
+
+echo "Memory Usage : "
 free -h
 
-date
+
+
