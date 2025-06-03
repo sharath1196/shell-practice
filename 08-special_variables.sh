@@ -5,7 +5,6 @@ echo "\$0 prints the filename : $0"
 
 echo "\$1 \$2 \$3.....\$9 are arguments passed to the script"
 
-
 echo "\$@ prints all arguements passed as seperate words : $@"
 
 echo "\$* prints all arguements passed as single word : $*"
