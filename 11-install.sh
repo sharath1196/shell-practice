@@ -7,18 +7,18 @@ if [ $USERID -eq 0 ]
 then
     echo "Running as Root"
     echo "Installing MySql"
-    dnf install mysql -y
 else
     echo "User ID : $USERID" 
+    echo "ERROR:: Not running as Root User" 
     exit 1
-    echo "ERROR:: Not running as Root User"
-    
 fi
 
-if [ $? -ne 0 ]
+dnf install mysql -y
+
+if [ $? -eq 0 ]
 then
-    echo "Installing MySql is....Failure"
+    echo "Installing MySql is....Success"
 else
-    echo "Installing MySql is...Success"
+    echo "Installing MySql is...Failure"
 fi
 
