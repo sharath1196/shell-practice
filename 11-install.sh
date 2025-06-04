@@ -2,7 +2,6 @@
 
 USERID=$(id -u)
 
-echo "$USERID"
 
 if [ $USERID -eq 0 ]
 then
@@ -12,5 +11,6 @@ then
 else
     echo "User ID : $USERID" 
     echo "Not running as Root User"
+    exit 1
 fi
 
