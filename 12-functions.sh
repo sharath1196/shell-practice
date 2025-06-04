@@ -28,6 +28,9 @@ main(){
 
     if is_root_user;
     then
+        echo "Running as Root"
+        echo "Installing $1"
+
         if is_package_installed; 
         then
             echo "$1 already installed"
