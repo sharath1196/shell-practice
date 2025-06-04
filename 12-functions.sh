@@ -30,7 +30,7 @@ main(){
     then
         if is_package_installed; 
         then
-            echo ""$1" already installed"
+            echo "$1 already installed"
         else
             install_package && log_success || log_failure
         fi
