@@ -11,4 +11,5 @@ then
     dnf install mysql -y
 else
     echo "Not running as Root User"
+fi
 
