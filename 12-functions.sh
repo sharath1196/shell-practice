@@ -31,11 +31,11 @@ main(){
         echo "Running as Root"
         echo "Installing $1"
 
-        if is_package_installed; 
+        if is_package_installed $1; 
         then
             echo "$1 already installed"
         else
-            install_package && log_success || log_failure
+            install_package $1 && log_success || log_failure
         fi
     else
         echo "User ID : $(get_user_id)"
