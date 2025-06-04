@@ -25,8 +25,7 @@ log_failure(){
 }
 
 main(){
-    PACKAGE_NAME=$1
-    
+
     if is_root_user;
     then
         if is_package_installed; 
@@ -43,3 +42,5 @@ main(){
     fi
 
 }
+
+main $1
