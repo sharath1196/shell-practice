@@ -17,14 +17,16 @@ install_package(){
 }
 
 log_success(){
-    echo "Installing "$1" is......Success"
+    echo "Installing $1 is......Success"
 }
 
 log_failure(){
-    echo "Installing "$1" is......Failure"
+    echo "Installing $1 is......Failure"
 }
 
 main(){
+    PACKAGE_NAME=$1
+    
     if is_root_user;
     then
         if is_package_installed; 
