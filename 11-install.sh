@@ -10,8 +10,9 @@ then
     dnf install mysql -y
 else
     echo "User ID : $USERID" 
-    echo "ERROR:: Not running as Root User"
     exit 1
+    echo "ERROR:: Not running as Root User"
+    
 fi
 
 if [ $? -ne 0 ]
