@@ -9,19 +9,19 @@ is_root_user(){
 }
 
 is_package_installed(){
-    dnf list installed $1 &> /dev/null
+    dnf list installed "$1" &> /dev/null
 }
 
 install_package(){
-    dnf install $1 -y
+    dnf install "$1" -y
 }
 
 log_success(){
-    echo "Installing $1 is......Success"
+    echo "Installing "$1" is......Success"
 }
 
 log_failure(){
-    echo "Installing $1 is......Failure"
+    echo "Installing "$1" is......Failure"
 }
 
 main(){
@@ -29,7 +29,7 @@ main(){
     then
         if is_package_installed; 
         then
-            echo "$1 already installed"
+            echo ""$1" already installed"
         else
             install_package && log_success || log_failure
         fi
