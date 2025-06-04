@@ -4,6 +4,8 @@
 # CPU usage
 # Memory usage
 # Disk usage#
+
+
 echo "******************************************************************"
 echo
 echo "CPU Load : "
