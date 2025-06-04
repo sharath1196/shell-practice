@@ -1,4 +1,4 @@
 #!/bin/bash
 
-USERID = $(id)
+USERID = $(id -u)
 
