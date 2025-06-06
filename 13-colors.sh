@@ -24,11 +24,11 @@ install_package(){
 }
 
 log_success(){
-    echo -e "Installing $1 is...... $G Success $RESET"
+    echo -e "Installing "$1" is...... $G Success $RESET"
 }
 
 log_failure(){
-    echo "Installing $1 is...... "$R" Failure "$RESET""
+    echo "Installing "$1" is...... "$R" Failure "$RESET""
 }
 
 main(){
