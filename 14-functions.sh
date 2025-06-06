@@ -14,10 +14,14 @@ USERID=$(id -u)
 
 echo "$USERID"
 
-if [ $USERID -eq 0 ]
-then
-    echo -e "Running with $Y ROOT $RESET ACCESS"
-else
-    echo -e "Not Running with $R ROOT $RESET ACCESS"
+main(){
+    if [ $USERID -eq 0 ]
+    then
+        echo -e "Running with $Y ROOT $RESET ACCESS"
+    else
+        echo -e "Not Running with $R ROOT $RESET ACCESS"
 fi
 
+}
+
+main
