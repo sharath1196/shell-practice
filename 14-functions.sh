@@ -10,6 +10,6 @@ echo -e "Printing color$R RED $RESET"
 echo -e "Printing color$G GREEN $RESET"
 echo -e "Printing color$Y YELLOW $RESET"
 
-USERID=$(id)
+USERID=$(id -u)
 
 echo "$USERID"
