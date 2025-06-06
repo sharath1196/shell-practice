@@ -17,11 +17,12 @@ echo "$USERID"
 main(){
     if [ $USERID -eq 0 ]
     then
-        echo $1
         echo -e "Running with $Y ROOT $RESET ACCESS"
+        dnf search $1
     else
         echo -e "Not Running with $R ROOT $RESET ACCESS"
 fi
+
 
 }
 
