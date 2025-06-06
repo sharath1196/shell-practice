@@ -20,7 +20,7 @@ is_package_installed(){
 }
 
 install_package(){
-    dnf install "$1" -y
+    dnf install "$1" -y &> -p /var/logs/
 }
 
 log_success(){
