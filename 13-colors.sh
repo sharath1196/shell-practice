@@ -28,7 +28,7 @@ log_success(){
 }
 
 log_failure(){
-    echo "Installing $1 is...... $R Failure $RESET"
+    echo "Installing $1 is...... "$R" Failure "$RESET""
 }
 
 main(){
@@ -40,7 +40,7 @@ main(){
 
         if is_package_installed "$1"; 
         then
-            echo "$1 already installed"
+            echo -e "$R $1 already installed $RESET"
         else
             install_package "$1" && log_success || log_failure
         fi
