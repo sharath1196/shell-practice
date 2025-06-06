@@ -19,4 +19,5 @@ then
     echo -e "Running with $Y ROOT $RESET ACCESS"
 else
     echo -e "Not Running with $R ROOT $RESET ACCESS"
+fi
 
