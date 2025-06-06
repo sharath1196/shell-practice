@@ -3,12 +3,8 @@
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
-
 RESET="\e[0m"
 
-echo -e "Printing color$R RED $RESET"
-echo -e "Printing color$G GREEN $RESET"
-echo -e "Printing color$Y YELLOW $RESET"
 
 USERID=$(id -u)
 
@@ -18,11 +14,10 @@ main(){
     if [ $USERID -eq 0 ]
     then
         echo -e "Running with $Y ROOT $RESET ACCESS"
-        dnf search $1 &> /dev/null
+        dnf search $1 &>> /var/log/install/log
     else
         echo -e "Not Running with $R ROOT $RESET ACCESS"
 fi
-
 
 }
 
