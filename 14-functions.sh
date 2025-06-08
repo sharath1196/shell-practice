@@ -6,7 +6,7 @@ Y="\e[33m"
 RESET="\e[0m"
 
 PKG=$1
-RESULT=dnf search $PKG &>> /var/log/install.log
+RESULT=dnf search $PKG 
 USERID=$(id -u)
 
 echo "$USERID"
