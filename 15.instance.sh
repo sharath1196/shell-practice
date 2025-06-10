@@ -1,13 +1,6 @@
 #!/bin/bash
 
-# aws ec2 run-instances \
-#     --image-id <ami-id> \
-#     --count <number-of-instances> \
-#     --instance-type <instance-type> \
-#     --key-name <key-pair-name> \
-#     --security-group-ids <security-group-id> \
-#     --subnet-id <subnet-id> \
-#     --region <region>
+
 
 AMI_ID="ami-09c813fb71547fc4f"
 TYPE="t2.micro"
@@ -22,3 +15,9 @@ for INSTANCE in ${INSTANCES[@]}
 do 
     echo $INSTANCE
 done
+
+aws ec2 run-instances \
+    --image-id $AMI_ID \
+    --instance-type $TYPE \
+    --security-group-ids $SECURITY \
+    --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=TEST}]'
