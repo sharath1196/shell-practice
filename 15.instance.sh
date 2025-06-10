@@ -12,13 +12,14 @@ DOMAIN="daws84.fun"
 INSTANCES=("mongod" "payment" "mysql" "redis" "frontend" "catalogue" "users" "cart" "dispatch" "shipping" "rabbitmq")
 
 for INSTANCE in ${INSTANCES[@]}
-do 
-    echo $INSTANCE
+do
+    INSTANCE_id=$(aws ec2 run-instances --image-id $AMI_ID --instance-type $TYPE --security-group-ids $SECURITY --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE}]" --query 'Instances[*].InstanceId' --output text)
+    if [ $INSTANCE != "frontend" ]
+    then
+        IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_id --query 'Reservations[0].Instances[0].PrivateIpAddress' --output text)
+    else
+        IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_id --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
+    fi
+    echo "$INSTANCE :: $IP"
 done
 
-aws ec2 run-instances --image-id $AMI_ID --instance-type $TYPE --security-group-ids $SECURITY --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=TEST}]' --query 'Instances[*].InstanceId' --output text
-
-
-IP=$(aws ec2 describe-instances --instance-ids i-043d3e3aed3b639c8 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
-
-echo $IP
