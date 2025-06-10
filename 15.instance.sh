@@ -16,4 +16,9 @@ do
     echo $INSTANCE
 done
 
-aws ec2 run-instances --image-id $AMI_ID --instance-type $TYPE --security-group-ids $SECURITY --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=TEST}]' 
+aws ec2 run-instances --image-id $AMI_ID --instance-type $TYPE --security-group-ids $SECURITY --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=TEST}]' --query 'Instances[*].InstanceId' --output text
+
+
+IP=$(aws ec2 describe-instances --instance-ids i-043d3e3aed3b639c8 --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
+
+echo $IP
