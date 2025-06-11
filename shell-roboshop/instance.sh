@@ -32,8 +32,6 @@ do
                 "ResourceRecords": [{
                     "Value": $IP
                 }]
-            }
-        }]
-}
+            }]       
 
 done
