@@ -2,4 +2,4 @@
 
 r='\e[31m'
 
-echo -e "Colour $R"
+echo -e "Colour $r"
