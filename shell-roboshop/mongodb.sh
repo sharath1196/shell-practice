@@ -33,6 +33,7 @@ then
     systemctl start mongodb
 else
     echo "Not running as root user"
+fi
 
 
 
