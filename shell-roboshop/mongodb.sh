@@ -25,14 +25,24 @@ echo $USERID
 
 if [ $USERID -eq 0 ]
 then
-    cp mongodb.repo /etc/mongodb/mongo.conf
-    dnf install mongodb
-    sed -i 's/127.0.0.0/0.0.0.0/g' /etc/mongodb/mongo.conf
+    cp mongodb.repo /etc/yum.repos.d/mongo.repo
+
+    dnf install mongodb-org -y
+
+    sed -i 's/127.0.0.0/0.0.0.0/g' /etc/yum.repos.d/mongo.repo
+
     systemctl daemon-reload
+
     systemctl enable mongodb
+
     systemctl start mongodb
+
+    systemctl restart mongodb
+
 else
+
     echo "Not running as root user"
+
 fi
 
 
