@@ -21,7 +21,7 @@ do
     echo "$INSTANCE :: $IP"
     aws route53 change-resource-record-sets \
         --hosted-zone-id $ZONE_ID  \
-        --change-batch  "{
+        --change-batch  '{
             "Comment": "Update A record for $DOMAIN",
             "Changes": [{
                 "Action": "UPSERT",
@@ -35,5 +35,5 @@ do
                 }
             }]
         }
-"  
+' 
 done
