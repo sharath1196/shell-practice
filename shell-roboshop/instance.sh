@@ -11,29 +11,46 @@ INSTANCES=("mongod" "payment" "mysql" "redis" "frontend" "catalogue" "users" "ca
 
 for INSTANCE in ${INSTANCES[@]}
 do
-    INSTANCE_id=$(aws ec2 run-instances --image-id $AMI_ID --instance-type $TYPE --security-group-ids $SECURITY --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE}]" --query 'Instances[*].InstanceId' --output text)
+    INSTANCE_id=$(aws ec2 run-instances \
+        --image-id $AMI_ID \
+        --instance-type $TYPE \
+        --security-group-ids $SECURITY \ 
+        --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE}]" \
+        --query 'Instances[*].InstanceId' \
+        --output text)
+
+    sleep 5
+
     if [ $INSTANCE != "frontend" ]
     then
-        IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_id --query 'Reservations[0].Instances[0].PrivateIpAddress' --output text)
+        IP=$(aws ec2 describe-instances \
+        --instance-ids $INSTANCE_id \
+        --query 'Reservations[0].Instances[0].PrivateIpAddress' \
+        --output text)
     else
-        IP=$(aws ec2 describe-instances --instance-ids $INSTANCE_id --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
+        IP=$(aws ec2 describe-instances \
+        --instance-ids $INSTANCE_id \
+        --query 'Reservations[0].Instances[0].PublicIpAddress' \
+        --output text)
     fi
+
     echo "$INSTANCE :: $IP"
+
     aws route53 change-resource-record-sets \
         --hosted-zone-id $ZONE_ID  \
-        --change-batch  '{
-            "Comment": "Update A record for $DOMAIN",
+        --change-batch '{
+            "Comment": "Update A record for '"$DOMAIN"'",
             "Changes": [{
                 "Action": "UPSERT",
                 "ResourceRecordSet": {
-                    "Name": "$INSTANCE.$DOMAIN",
+                    "Name": "'"$INSTANCE.$DOMAIN"'",
                     "Type": "A",
-                    "TTL": 1,
+                    "TTL" 1;
                     "ResourceRecords": [{
-                        "Value": "$IP"
+                        "Value": "'"$IP"'"
                     }]
                 }
             }]
-        }
-' 
+        
+        }'
 done
