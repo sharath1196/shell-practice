@@ -11,13 +11,7 @@ INSTANCES=("mongod" "payment" "mysql" "redis" "frontend" "catalogue" "users" "ca
 
 for INSTANCE in ${INSTANCES[@]}
 do
-    INSTANCE_id=$(aws ec2 run-instances \
-        --image-id $AMI_ID \
-        --instance-type $TYPE \
-        --security-group-ids $SECURITY \ 
-        --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE}]" \
-        --query 'Instances[*].InstanceId' \
-        --output text)
+    INSTANCE_id=$(aws ec2 run-instances --image-id $AMI_ID --instance-type $TYPE --security-group-ids $SECURITY --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE}]" --query 'Instances[*].InstanceId' --output text)
 
     sleep 5
 
