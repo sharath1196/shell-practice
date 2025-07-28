@@ -8,6 +8,7 @@ N="\e[0m"
 LOGS_FOLDER="/var/log/roboshop-logs"
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
+SCRIPT_DIR=$PWD
 
 mkdir -p $LOGS_FOLDER
 echo "Script started executing at: $(date)" | tee -a $LOG_FILE
@@ -58,3 +59,34 @@ VALIDATE $? "Extracting the artifact files here"
 cd /app 
 npm install
 VALIDATE $? "Build the artifact" 
+
+cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
+VALIDATE $? "Copying the service file"
+
+systemctl daemon-reload
+systemctl enable catalogue 
+systemctl start catalogue
+
+VALIDATE $? "Catalogue service"
+
+cp $SCRIPT_DIR/mongodb.repo /etc/yum.repos.d/mongodb.repo
+VALIDATE $? "Copying mongodb"
+
+dnf install mongodb-mongosh -y
+VALIDATE $? "Installing mongodb client"
+
+mongosh --host mongodb.daws84.fun </app/db/master-data.js
+VALIDATE $? "Loading the data in the MongoDB"
+
+
+mongosh --host mongodb.daws84.fun
+VALIDATE $? "Logging in mongodb through client"
+
+echo "Databases :"
+show dbs
+
+use catalogue
+
+show collections
+
+db.products.find()
