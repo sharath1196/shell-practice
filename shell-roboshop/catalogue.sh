@@ -75,11 +75,11 @@ VALIDATE $? "Copying mongodb"
 dnf install mongodb-mongosh -y
 VALIDATE $? "Installing mongodb client"
 
-mongosh --host mongodb.daws84.fun </app/db/master-data.js
+mongosh --host mongod.daws84.fun </app/db/master-data.js
 VALIDATE $? "Loading the data in the MongoDB"
 
 
-mongosh --host mongodb.daws84.fun
+mongosh --host mongod.daws84.fun
 VALIDATE $? "Logging in mongodb through client"
 
 echo "Databases :"
