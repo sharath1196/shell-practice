@@ -63,6 +63,9 @@ VALIDATE $? "Removing the basic configuration file"
 cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf
 VALIDATE $? "Adding a new config file"
 
+systemctl restart nginx &>> $LOG_FILE
+VALIDATE $? "Successfully restarting nginx"
+
 
 # id roboshop
 # if [ $? -ne 0 ]
