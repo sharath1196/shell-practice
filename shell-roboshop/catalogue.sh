@@ -69,9 +69,9 @@ VALIDATE $? "Build the artifact"
 cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
 VALIDATE $? "Copying the service file"
 
-systemctl daemon-reload
-systemctl enable catalogue 
-systemctl start catalogue
+systemctl daemon-reload &>> $LOG_FILE
+systemctl enable catalogue &>> $LOG_FILE
+systemctl start catalogue &>> $LOG_FILE
 
 VALIDATE $? "Catalogue service"
 
@@ -91,12 +91,3 @@ fi
 
 mongosh --host mongod.daws84.fun
 VALIDATE $? "Logging in mongodb through client"
-
-echo "Databases :"
-show dbs
-
-use catalogue
-
-show collections
-
-db.products.find()
