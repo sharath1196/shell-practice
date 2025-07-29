@@ -81,7 +81,7 @@ VALIDATE $? "Copying mongodb"
 dnf install mongodb-mongosh -y &>> $LOG_FILE
 VALIDATE $? "Installing mongodb client"
 
-if [ $(mongosh --host mongodb.daws84.fun --eval 'db.getMongo().getDBNames().indexOf("catalogue")') -lt 0 ]
+if [ $(mongosh --host mongod.daws84.fun --eval 'db.getMongo().getDBNames().indexOf("catalogue")') -lt 0 ]
 then
     mongosh --host mongod.daws84.fun </app/db/master-data.js
     VALIDATE $? "Loading the data in the MongoDB"
