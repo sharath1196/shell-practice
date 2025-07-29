@@ -81,9 +81,13 @@ VALIDATE $? "Copying mongodb"
 dnf install mongodb-mongosh -y
 VALIDATE $? "Installing mongodb client"
 
-mongosh --host mongod.daws84.fun </app/db/master-data.js
-VALIDATE $? "Loading the data in the MongoDB"
-
+if [ $(mongo mongodb.daws84.fun --eval 'db.getMongo().getDBNames().indexOf("catalogue")' --quiet) -lt 0 ]
+then
+    mongosh --host mongod.daws84.fun </app/db/master-data.js
+    VALIDATE $? "Loading the data in the MongoDB"
+else
+    echo "DB already exits"
+fi
 
 mongosh --host mongod.daws84.fun
 VALIDATE $? "Logging in mongodb through client"
