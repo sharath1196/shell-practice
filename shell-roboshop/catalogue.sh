@@ -58,12 +58,12 @@ curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue
 VALIDATE $? "Downloading the artifact"
 
 cd /app 
-
+rm -rf /app/*
 unzip /tmp/catalogue.zip &>> $LOG_FILE
 VALIDATE $? "Extracting the artifact files here"
 
 cd /app 
-npm install
+npm install &>> $LOG_FILE
 VALIDATE $? "Build the artifact" 
 
 cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
