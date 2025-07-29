@@ -78,7 +78,7 @@ VALIDATE $? "Catalogue service"
 cp $SCRIPT_DIR/mongodb.repo /etc/yum.repos.d/mongodb.repo
 VALIDATE $? "Copying mongodb"
 
-dnf install mongodb-mongosh -y
+dnf install mongodb-mongosh -y &>> $LOG_FILE
 VALIDATE $? "Installing mongodb client"
 
 if [ $(mongo mongodb.daws84.fun --eval 'db.getMongo().getDBNames().indexOf("catalogue")' --quiet) -lt 0 ]
@@ -89,5 +89,3 @@ else
     echo "DB already exits"
 fi
 
-mongosh --host mongod.daws84.fun
-VALIDATE $? "Logging in mongodb through client"
