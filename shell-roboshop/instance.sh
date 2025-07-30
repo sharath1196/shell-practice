@@ -7,10 +7,9 @@ ZONE_ID="Z023580323RAYFGL1JQNH"
 
 DOMAIN="daws84.fun"
 
-INSTANCES=("mongod" "payment" "mysql" "redis" "frontend" "catalogue" "users" "cart" "dispatch" "shipping" "rabbitmq")
+INSTANCES=("payment" "mysql" "users" "cart" "dispatch" "shipping" "rabbitmq")
 
-# for INSTANCE in ${INSTANCES[@]}
-for INSTANCE in "$@"
+for INSTANCE in ${INSTANCES[@]}
 do
     INSTANCE_id=$(aws ec2 run-instances --image-id $AMI_ID --instance-type $TYPE --security-group-ids $SECURITY --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE}]" --query 'Instances[*].InstanceId' --output text)
 
@@ -22,13 +21,11 @@ do
         --instance-ids $INSTANCE_id \
         --query 'Reservations[0].Instances[0].PrivateIpAddress' \
         --output text)
-        RECORD_NAME="$INSTANCE.$DOMAIN"
     else
         IP=$(aws ec2 describe-instances \
         --instance-ids $INSTANCE_id \
         --query 'Reservations[0].Instances[0].PublicIpAddress' \
         --output text)
-        RECORD_NAME="$DOMAIN"
     fi
 
     echo "$INSTANCE :: $IP"
@@ -40,7 +37,7 @@ do
             "Changes": [{
                 "Action": "UPSERT",
                 "ResourceRecordSet": {
-                    "Name": "'"$RECORD_NAME"'",
+                    "Name": "'"$INSTANCE.$DOMAIN"'",
                     "Type": "A",
                     "TTL" 1;
                     "ResourceRecords": [{
