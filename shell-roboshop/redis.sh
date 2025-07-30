@@ -42,10 +42,10 @@ VALIDATE $? "Enabling required redis"
 dnf install redis -y &>> $LOG_FILE
 VALIDATE $? "Installing required redis"
 
-sed -i 's/bind 127.0.0.1/bind 0.0.0.0' /etc/redis/redis.conf
+sed -i 's/bind 127.0.0.1/bind 0.0.0.0/' /etc/redis/redis.conf
 VALIDATE $? "Changing bind address to 0.0.0.0"
 
-sed -i 's/protected-mode yes/protected-mode no' /etc/redis/redis.conf
+sed -i 's/protected-mode yes/protected-mode no/' /etc/redis/redis.conf
 VALIDATE $? "Turning off Protected mode"
 
 systemctl enable redis 
