@@ -79,12 +79,18 @@ read -sp "Enter your Password : " PASSWORD
 echo
 
 mysql -h mysql.daws84.dun -u root -p$PASSWORD -e 'use cities' &>> $LOG_FILE
-mysql -h mysql.daws84.fun -uroot -p$PASSWORD < /app/db/schema.sql &>> $LOG_FILE
-mysql -h mysql.daws84.fun -uroot -p$PASSWORD < /app/db/app-user.sql &>> $LOG_FILE
-mysql -h mysql.daws84.fun -uroot -p$PASSWORD < /app/db/master-data.sql &>> $LOG_FILE
+if [ $? -ne 0 ]
+then
+    mysql -h mysql.daws84.fun -uroot -p$PASSWORD < /app/db/schema.sql &>> $LOG_FILE
+    mysql -h mysql.daws84.fun -uroot -p$PASSWORD < /app/db/app-user.sql &>> $LOG_FILE
+    mysql -h mysql.daws84.fun -uroot -p$PASSWORD < /app/db/master-data.sql &>> $LOG_FILE
+    VALIDATE $? "Loading the data into MySQL"
+else
+    echo -e "Data is already present in the MySQL ... $Y SKIPPING $N"
+fi
 
-systemctl restart shipping
-
+systemctl restart shipping &>>$LOG_FILE
+VALIDATE $? "Restart shipping"
 
 END_TIME=$(date +%s)
 TOTAL_TIME=$(( $END_TIME - $START_TIME ))
