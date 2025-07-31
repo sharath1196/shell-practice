@@ -78,10 +78,9 @@ VALIDATE $? "Installing mysql client"
 read -sp "Enter your Password : " PASSWORD
 echo
 
+mysql -h mysql.daws84.dun -u root -p$PASSWORD -e 'use cities' &>> $LOG_FILE
 mysql -h mysql.daws84.fun -uroot -p$PASSWORD < /app/db/schema.sql &>> $LOG_FILE
-
 mysql -h mysql.daws84.fun -uroot -p$PASSWORD < /app/db/app-user.sql &>> $LOG_FILE
-
 mysql -h mysql.daws84.fun -uroot -p$PASSWORD < /app/db/master-data.sql &>> $LOG_FILE
 
 systemctl restart shipping
