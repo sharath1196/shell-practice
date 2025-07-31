@@ -65,6 +65,9 @@ VALIDATE $? "Build the artifact"
 mv target/shipping-1.0.jar shipping.jar
 VALIDATE $? "Moving the jar file to /app/" 
 
+cp $SCRIPT_DIR/shipping.service /etc/systemd/system/sipping.service
+VALIDATE $? "Copying the service file"
+
 
 systemctl daemon-reload &>> $LOG_FILE
 systemctl enable shipping &>> $LOG_FILE
