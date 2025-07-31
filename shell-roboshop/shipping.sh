@@ -75,13 +75,13 @@ systemctl start shipping &>> $LOG_FILE
 VALIDATE $? "shipping service"
 
 
-dnf install mysql -y 
+dnf install mysql -y &>> $LOG_FILE
 VALIDATE $? "Installing mysql client"
 
 read -sp "Enter your Password : " PASSWORD
 echo
 
-mysql -h mysql.daws84.dun -u root -p$PASSWORD -e 'use cities' &>> $LOG_FILE
+mysql -h mysql.daws84.fun -u root -p$PASSWORD -e 'use cities' &>> $LOG_FILE
 if [ $? -ne 0 ]
 then
     mysql -h mysql.daws84.fun -uroot -p$PASSWORD < /app/db/schema.sql &>> $LOG_FILE
