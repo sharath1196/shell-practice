@@ -70,7 +70,7 @@ cd /app
 pip3 install -r requirements.txt &>> $LOG_FILE
 VALIDATE $? "Installing the artifact"
 
-cp payment.service /etc/systemd/system/payment.service
+cp $SCRIPT_DIR/payment.service /etc/systemd/system/payment.service
 VALIDATE $? "Copying the service "
 
 systemctl daemon-reload &>> $LOG_FILE
