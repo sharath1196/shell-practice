@@ -34,7 +34,7 @@ VALIDATE(){
     fi
 }
 
-cp $SCRIPT_DIR/rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
+cp rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
 VALIDATE $? "Copying RabbitMQ repo"
 
 dnf install rabbitmq-server -y
@@ -52,7 +52,10 @@ read -sp "Enter your Password : " PASSWORD
 echo
 
 rabbitmqctl add_user $USERNAME $PASSWORD
+VALIDATE $? "Creating RabbitMQ User"
+
 rabbitmqctl set_permissions -p / $USERNAME ".*" ".*" ".*"
+VALIDATE $? "Setting Permissions for RabbitMQ User"
 
 END_TIME=$(date +%s)
 TOTAL_TIME=$(( $END_TIME - $START_TIME ))
